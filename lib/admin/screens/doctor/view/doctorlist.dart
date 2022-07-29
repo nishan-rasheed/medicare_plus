@@ -1,8 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:medicare_plus/admin/screens/doctor/doctor.dart';
+import 'package:medicare_plus/app_constants/collection_constants.dart';
 
 class DoctorList extends StatelessWidget {
-  const DoctorList({Key? key}) : super(key: key);
+   DoctorList({Key? key}) : super(key: key);
+
+  final _doctorDocument =
+              FirebaseFirestore.instance.collection(doctorCollection);
 
   @override
   Widget build(BuildContext context) {
@@ -43,72 +48,83 @@ class DoctorList extends StatelessWidget {
               height: 10,
             ),
             Expanded(
-              child: ListView.builder(
-                itemCount: 10,
-                itemBuilder: (BuildContext context, int index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                    decoration: BoxDecoration(
-                        color: Colors.grey,
-                        borderRadius: BorderRadius.circular(19)),
-                    height: 130,
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 30),
-                          height: 90,
-                          width: 70,
-                          decoration: BoxDecoration(
-                            color: Colors.green,
-                            borderRadius: BorderRadius.circular(
-                              10,
-                            ),
-                            image: const DecorationImage(
-                              fit: BoxFit.fill,
-                              image: AssetImage('assets/images/dr1.webp'),
-                            ),
-                          ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: StreamBuilder(
+                stream: _doctorDocument.snapshots(),
+                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  }else{
+                    var docData = snapshot.data!;
+                  return ListView.builder(
+                    itemCount:docData.docs.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      DocumentSnapshot drItem = docData.docs[index];
+                      return Container(
+                        margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(19)),
+                        height: 130,
+                        child: Row(
                           children: [
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            const Text(
-                              'Dr.John Smith',
-                              style: TextStyle(fontSize: 22),
-                            ),
-                            const Text(
-                              'Cardiologist',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                            SizedBox(
-                              width: 110,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  showDialog<dynamic>(
-                                      context: context,
-                                      builder: (context) {
-                                        return DoctorInfo();
-                                      });
-                                },
-                                style: ElevatedButton.styleFrom(
-                                  primary: Color.fromARGB(255, 82, 188, 100),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(15),
-                                  ),
+                            Container(
+                              margin: EdgeInsets.symmetric(horizontal: 30),
+                              height: 90,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(
+                                  10,
                                 ),
-                                child: const Text('View'),
+                                image: const DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage('assets/images/dr1.webp'),
+                                ),
                               ),
                             ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                Text(
+                                  drItem['name'].toString(),
+                                  style: const TextStyle(fontSize: 22),
+                                ),
+                                Text(
+                                  drItem['department'].toString(),
+                                  style: const TextStyle(fontSize: 16),
+                                ),
+                                SizedBox(
+                                  width: 110,
+                                  child: ElevatedButton(
+                                    onPressed: () {
+                                      showDialog<dynamic>(
+                                          context: context,
+                                          builder: (context) {
+                                            return DoctorInfo();
+                                          });
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Color.fromARGB(255, 82, 188, 100),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                    ),
+                                    child: const Text('View'),
+                                  ),
+                                ),
+                              ],
+                            )
                           ],
-                        )
-                      ],
-                    ),
+                        ),
+                      );
+                    },
                   );
-                },
+                  }
+                }
               ),
             ),
           ],

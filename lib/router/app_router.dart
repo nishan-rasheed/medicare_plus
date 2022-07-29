@@ -7,6 +7,7 @@ import 'package:medicare_plus/admin/screens/patients/patient.dart';
 import 'package:medicare_plus/common/login/login.dart';
 import 'package:medicare_plus/common/signup/signup.dart';
 import 'package:medicare_plus/common/splash/splash.dart';
+import 'package:medicare_plus/doctor/screens/chat/view/chatsingle.dart';
 import 'package:medicare_plus/doctor/screens/dashscreen.dart';
 import 'package:medicare_plus/doctor/screens/home/home.dart';
 import 'package:medicare_plus/router/app_constants.dart';
@@ -27,11 +28,11 @@ class AppRoute{
 
       case RouteConstants.doctorscreen:
       return MaterialPageRoute<MaterialPageRoute>
-      (builder: (context) => const DoctorList(),);
+      (builder: (context) => DoctorList(),);
 
        case RouteConstants.patientscreen:
       return MaterialPageRoute<MaterialPageRoute>
-      (builder: (context) => const PatientScreen(),);
+      (builder: (context) => PatientScreen(),);
 
       case RouteConstants.departmentscreen:
       return MaterialPageRoute<MaterialPageRoute>
@@ -39,7 +40,7 @@ class AppRoute{
 
       case RouteConstants.signupscreen:
       return MaterialPageRoute<MaterialPageRoute>
-      (builder: (context) => const SignupScreen());
+      (builder: (context) => SignupScreen());
       
       case RouteConstants.loginscreen:
       return MaterialPageRoute<MaterialPageRoute>
@@ -56,6 +57,12 @@ class AppRoute{
       return MaterialPageRoute<MaterialPageRoute>
       (builder: (context) => const DrProfileScreen(),);
 
+      case RouteConstants.drChat:
+      return MaterialPageRoute<MaterialPageRoute>
+      (builder: (context) => const DrChatSingle());
+
+
+///+++++++++++++
        default:return MaterialPageRoute<MaterialPageRoute>
        (builder: (context) =>  const ErrorScreen());
 

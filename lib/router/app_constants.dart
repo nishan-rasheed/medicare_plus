@@ -13,5 +13,6 @@ class RouteConstants {
  static const String loginscreen = '/login';
  ///doctor screens////
  static const String drDash ='/drdash';
- static const String drProfile = '/drprofile';
+ static const String drProfile = '/drproile';
+ static const String drChat = '/drchat';
 }

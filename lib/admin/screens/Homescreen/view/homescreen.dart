@@ -11,8 +11,8 @@ class Homescreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       
-      child: Scaffold(
-       
+      bottom: false,
+      child: Scaffold(  
         drawer: SideMenu(),
         appBar: AppBar(
         ),
@@ -53,7 +53,7 @@ class Homescreen extends StatelessWidget {
                     lineHeight: 30,
                     percent: 0.9,
                     progressColor: Colors.blue,
-
+    
               )
            ],
         ),

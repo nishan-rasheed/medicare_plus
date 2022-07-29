@@ -17,9 +17,11 @@ class LoginScreen extends StatelessWidget {
       create: (context) => _loginBloc,
       child: BlocListener<LoginBloc, LoginState>(
         listener: (context, state) {
-         if (state is LoginDoneState) {
-           Navigator.pushNamed(context, RouteConstants.dashscreen);
-         }
+          if (state is LoginAdminSuccess) {
+            Navigator.pushNamed(context, RouteConstants.dashscreen);
+          } else if (state is LoginDoctorSucess) {
+            Navigator.pushNamed(context, RouteConstants.drDash);
+          }
         },
         child: SafeArea(
           child: Scaffold(
@@ -84,6 +86,18 @@ class LoginScreen extends StatelessWidget {
                       // Navigator.pushNamed(context, RouteConstants.dashscreen);
                     },
                     child: const Text('login'),
+                  ),
+                  BlocBuilder<LoginBloc, LoginState>(
+                    builder: (context, state) {
+                      if (state is LoginFailedState) {
+                        return Text(
+                          state.errorMessage.toString(),
+                          style: const TextStyle(color: Colors.red),
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                    },
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

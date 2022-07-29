@@ -2,9 +2,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class PatientScreen extends StatelessWidget {
- const PatientScreen({Key? key}) : super(key: key);
+ PatientScreen({Key? key}) : super(key: key);
 
- 
+ final CollectionReference userDetails = 
+  FirebaseFirestore.instance.collection('userdetails');
   @override
   Widget build(BuildContext context) {
     return SafeArea(child:
@@ -69,51 +70,63 @@ class PatientScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: ListView.separated(
-                itemCount: 14,
-                separatorBuilder: (BuildContext context, int index) {
-                  return Divider();
-                },
-                itemBuilder: (BuildContext context, int index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(left:14,),
-                    child: Row(
-                    
-                    children: [
-                     const  Text('101',style: TextStyle(
-                      fontSize: 17,),),
-                      const SizedBox(width: 10,),
-                      const  SizedBox(
-                        width: 90,
-                         child: Text('Nishan Rasheed',
-                         
-                         style: TextStyle(
-                      fontSize: 17,),),
-                       ),
-                       
-                     const  SizedBox(
-                        width: 100,
-                        child:Text('7356092563',style: TextStyle(
-                        fontSize: 17,),),
-                      ),
-                      const  SizedBox(width:15,),
-                       SizedBox(height: 30,
-                                width: 90,
-                                child: ElevatedButton(
-                                  onPressed: () {},
-                                  style: ElevatedButton.styleFrom(
-                                    primary: Color.fromARGB(255, 82, 188, 100),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(15),
+              child: StreamBuilder(
+                stream: userDetails.snapshots(),
+                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
+                  if (!snapshot.hasData) {
+                    return CircularProgressIndicator();
+                  }else{
+                  var userData = snapshot.data!;
+                  return ListView.separated(
+                    itemCount: userData.docs.length,
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider();
+                    },
+                    itemBuilder: (BuildContext context, int index) {
+                      DocumentSnapshot document =userData.docs[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(left:14,),
+                        child: Row(
+                        
+                        children: [
+                         const  Text('101',style: TextStyle(
+                          fontSize: 17,),),
+                          const SizedBox(width: 10,),
+                           SizedBox(
+                            width: 90,
+                             child: Text(document['name'].toString(),   
+                             style:const TextStyle(
+                          fontSize: 17,),
+                          ),
+                           ),
+                           
+                         SizedBox(
+                            width: 100,
+                            child:Text(document['phone'].toString(),
+                            style:const TextStyle(
+                            fontSize: 17,),),
+                          ),
+                          const  SizedBox(width:15,),
+                           SizedBox(height: 30,
+                                    width: 90,
+                                    child: ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        primary: Color.fromARGB(255, 82, 188, 100),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                      ),
+                                      child: const Text('Info'),
                                     ),
                                   ),
-                                  child: const Text('Info'),
-                                ),
-                              ),
-                    ],
-                    ),
-                  ) ;
-                },
+                        ],
+                        ),
+                      ) ;
+                    },
+                  );
+                  }
+                }
               ),
             ),
          ],
