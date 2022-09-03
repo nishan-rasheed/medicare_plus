@@ -83,7 +83,6 @@ class LoginScreen extends StatelessWidget {
                             email: emailController.text,
                             password: passwordController.text),
                       );
-                      // Navigator.pushNamed(context, RouteConstants.dashscreen);
                     },
                     child: const Text('login'),
                   ),

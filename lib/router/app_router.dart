@@ -55,7 +55,7 @@ class AppRoute{
 
       case RouteConstants.drProfile:
       return MaterialPageRoute<MaterialPageRoute>
-      (builder: (context) => const DrProfileScreen(),);
+      (builder: (context) =>  DrProfileScreen(),);
 
       case RouteConstants.drChat:
       return MaterialPageRoute<MaterialPageRoute>

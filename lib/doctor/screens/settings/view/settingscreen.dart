@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class SettngScreen extends StatefulWidget {
@@ -47,7 +48,10 @@ class _SettngScreenState extends State<SettngScreen> {
        ListTile(
           title: Text('Change password',style: titleText,),      
           trailing: const Icon(Icons.arrow_forward_ios_outlined),
-          onTap: (){},
+          onTap: (){
+            FirebaseAuth.instance.signOut();
+            // Navigator.pop(context);
+          },
       ),
       SwitchListTile(
           activeColor:const  Color(0Xff8883F0),

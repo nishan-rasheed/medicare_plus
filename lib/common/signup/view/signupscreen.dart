@@ -23,6 +23,7 @@ class SignupScreen extends StatelessWidget {
         listener: (context, state) {
           if (state is SignuppDoneState) {
             Navigator.pushNamed(context, RouteConstants.loginscreen);
+            
           }
         },
         child: Scaffold(

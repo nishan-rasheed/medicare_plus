@@ -2,7 +2,6 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:medicare_plus/app_constants/collection_constants.dart';
-import 'package:meta/meta.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -34,7 +33,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
             var data = doctorDoc.data()!;
             if (data['permission'] == true) {
               emit(LoginDoctorSucess());
-            }           
+                 }           
           } else if (adminDoc.exists) {
             emit(LoginAdminSuccess());
           } else {

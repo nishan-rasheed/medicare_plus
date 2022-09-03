@@ -102,16 +102,16 @@ class NotificationScreen extends StatelessWidget {
                                               borderRadius:
                                                   BorderRadius.circular(15),
                                             ),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                const Text(
-                                                  'Do you want to varify this user',
-                                                  style:
-                                                      TextStyle(fontSize: 20),
-                                                ),
-                                                Row(
+                                    child: Column(
+                                        mainAxisAlignment:
+                                           MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                           const Text(
+                                         'Do you want to varify this user',
+                                            style:
+                                         TextStyle(fontSize: 20),
+                                       ),
+                                  Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment
                                                           .spaceAround,
@@ -178,7 +178,7 @@ class NotificationScreen extends StatelessWidget {
                                               ],
                                             ),
                                           );
-                                        });
+                                        },);
                                   },
                                   child: Row(
                                     children: [

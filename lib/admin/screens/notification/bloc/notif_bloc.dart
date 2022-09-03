@@ -11,14 +11,6 @@ class NotifBloc extends Bloc<NotifEvent, NotifState> {
     on<NotifEvent>((event, emit) async{
       if (event is NotifGetEvent) {
         try {
-          // final _doctorDocument =
-          //     await FirebaseFirestore.instance.collection(doctorCollection);
-          // var docId = _doctorDocument.id;
-          // print('+++++++++++++++++++++++');
-          // print(docId);
-          // _doctorDocument.doc(docId).update({
-          //   'permission': true,
-          // });
 
         final _doctorDocument =
              await FirebaseFirestore.instance.collection(doctorCollection);

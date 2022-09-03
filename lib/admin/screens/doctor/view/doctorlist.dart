@@ -54,11 +54,12 @@ class DoctorList extends StatelessWidget {
                   if (!snapshot.hasData) {
                     return CircularProgressIndicator();
                   }else{
-                    var docData = snapshot.data!;
+                    //var docData = snapshot.data!;
                   return ListView.builder(
-                    itemCount:docData.docs.length,
+                    itemCount:snapshot.data!.docs.length,
                     itemBuilder: (BuildContext context, int index) {
-                      DocumentSnapshot drItem = docData.docs[index];
+                     var drItem;
+                      drItem =snapshot.data!.docs[index].data();
                       return Container(
                         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                         decoration: BoxDecoration(
@@ -76,9 +77,10 @@ class DoctorList extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(
                                   10,
                                 ),
-                                image: const DecorationImage(
+                                image:  DecorationImage(
                                   fit: BoxFit.fill,
-                                  image: AssetImage('assets/images/dr1.webp'),
+                                  image: NetworkImage(drItem['image'])
+                                  // image: AssetImage('assets/images/dr1.webp'),
                                 ),
                               ),
                             ),

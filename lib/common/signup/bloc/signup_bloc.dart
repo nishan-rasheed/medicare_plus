@@ -31,6 +31,7 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
               'type':'Doctor',
               'permission': false,
               'userid':userId,
+              'image':'',
             });
          emit(SignuppDoneState());
         } catch (e) {
